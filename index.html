@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Annie – Consultant</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{--accent:#C0603A;--accent2:#E8845E;--dark:#1a1a1a;--mid:#555;--light:#f5f3f0;--white:#fff;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--white);color:var(--dark);}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(10px);border-bottom:1px solid #e8e4e0;padding:0 5%;}
+  .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;}
+  .logo{font-size:1.3rem;font-weight:800;letter-spacing:-0.5px;color:var(--dark);}
+  .logo span{color:var(--accent);}
+  .nav-links{display:flex;gap:2rem;list-style:none;}
+  .nav-links a{text-decoration:none;color:var(--mid);font-size:.9rem;font-weight:500;transition:.2s;}
+  .nav-links a:hover{color:var(--accent);}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;align-items:center;padding:80px 5% 60px;background:var(--white);}
+  .hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+  .hero-tag{display:inline-block;background:var(--accent);color:#fff;font-size:.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:.35rem .9rem;border-radius:2px;margin-bottom:1.5rem;}
+  .hero h1{font-size:clamp(3rem,6vw,5.5rem);font-weight:900;line-height:1.05;letter-spacing:-2px;margin-bottom:1.5rem;}
+  .hero h1 em{font-style:normal;color:var(--accent);}
+  .hero p{font-size:1.1rem;color:var(--mid);line-height:1.7;margin-bottom:2.5rem;max-width:420px;}
+  .btn{display:inline-block;background:var(--accent);color:#fff;padding:.9rem 2.2rem;border-radius:4px;text-decoration:none;font-weight:700;font-size:.95rem;transition:.2s;border:2px solid var(--accent);}
+  .btn:hover{background:transparent;color:var(--accent);}
+  .btn-ghost{background:transparent;color:var(--dark);border-color:var(--dark);margin-left:1rem;}
+  .btn-ghost:hover{background:var(--dark);color:#fff;}
+  .hero-visual{position:relative;}
+  .hero-img-wrap{width:100%;aspect-ratio:4/5;background:var(--light);border-radius:4px;overflow:hidden;position:relative;}
+  .hero-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--accent)22 0%,transparent 60%);}
+  .placeholder-img{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:5rem;color:#ddd;}
+  .hero-badge{position:absolute;bottom:-1.5rem;left:-1.5rem;background:var(--dark);color:#fff;padding:1.2rem 1.5rem;border-radius:4px;}
+  .hero-badge .num{font-size:2rem;font-weight:900;line-height:1;}
+  .hero-badge .label{font-size:.7rem;color:#aaa;text-transform:uppercase;letter-spacing:1px;}
+
+  /* SECTIONS */
+  section{padding:100px 5%;}
+  .section-inner{max-width:1100px;margin:0 auto;}
+  .section-label{font-size:.75rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem;}
+  .section-title{font-size:clamp(2rem,4vw,3rem);font-weight:900;letter-spacing:-1px;margin-bottom:3rem;line-height:1.1;}
+
+  /* ABOUT */
+  #about{background:var(--light);}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+  .about-photo{aspect-ratio:1;background:#e0dbd5;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:4rem;color:#bbb;}
+  .about-text p{font-size:1.05rem;color:var(--mid);line-height:1.8;margin-bottom:1.2rem;}
+  .about-stats{display:flex;gap:2.5rem;margin-top:2rem;}
+  .stat .n{font-size:2.2rem;font-weight:900;color:var(--accent);}
+  .stat .l{font-size:.8rem;color:var(--mid);margin-top:.2rem;}
+
+  /* PROJECTS */
+  .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+  .card{border:1px solid #e8e4e0;border-radius:4px;overflow:hidden;transition:.3s;cursor:pointer;}
+  .card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,0,0,.08);}
+  .card-thumb{height:180px;display:flex;align-items:center;justify-content:center;font-size:3rem;}
+  .card-body{padding:1.5rem;}
+  .card-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.75rem;}
+  .tag{font-size:.7rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:.2rem .6rem;border-radius:2px;background:var(--light);color:var(--mid);}
+  .card h3{font-size:1.1rem;font-weight:800;margin-bottom:.5rem;}
+  .card p{font-size:.9rem;color:var(--mid);line-height:1.6;}
+
+  /* SKILLS */
+  #skills{background:var(--light);}
+  .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+  .skill-cat{background:var(--white);border-radius:4px;padding:2rem;}
+  .skill-cat h3{font-size:1rem;font-weight:800;margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem;}
+  .skill-cat h3 .icon{font-size:1.4rem;}
+  .skill-bar-wrap{margin-bottom:.9rem;}
+  .skill-name{display:flex;justify-content:space-between;font-size:.85rem;font-weight:600;margin-bottom:.4rem;}
+  .skill-name span{color:var(--mid);font-weight:400;}
+  .bar{height:6px;background:#e8e4e0;border-radius:3px;overflow:hidden;}
+  .bar-fill{height:100%;background:var(--accent);border-radius:3px;transition:width 1s ease;}
+
+  /* CONTACT */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+  .contact-info p{font-size:1.05rem;color:var(--mid);line-height:1.8;margin-bottom:2rem;}
+  .contact-detail{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;font-size:.95rem;color:var(--mid);}
+  .contact-detail .icon{font-size:1.2rem;}
+  form{display:flex;flex-direction:column;gap:1rem;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  input,textarea{width:100%;padding:.85rem 1rem;border:1.5px solid #e0dbd5;border-radius:4px;font-size:.95rem;font-family:inherit;background:var(--white);transition:.2s;outline:none;}
+  input:focus,textarea:focus{border-color:var(--accent);}
+  textarea{resize:vertical;min-height:130px;}
+  button[type=submit]{background:var(--accent);color:#fff;border:2px solid var(--accent);padding:.9rem;border-radius:4px;font-size:.95rem;font-weight:700;cursor:pointer;transition:.2s;}
+  button[type=submit]:hover{background:transparent;color:var(--accent);}
+
+  /* FOOTER */
+  footer{background:var(--dark);color:#aaa;text-align:center;padding:2rem 5%;font-size:.85rem;}
+  footer span{color:var(--accent);}
+
+  @media(max-width:800px){
+    .hero-inner,.about-grid,.contact-grid{grid-template-columns:1fr;}
+    .projects-grid,.skills-grid{grid-template-columns:1fr;}
+    .hero-visual{display:none;}
+    .form-row{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">Annie<span>.</span></div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-tag">Available for Work</div>
+      <h1>Strategic<br/><em>Consultant</em><br/>& Advisor</h1>
+      <p>I help organizations solve complex problems, streamline operations, and build strategies that actually work. Let's create something meaningful together.</p>
+      <a href="#contact" class="btn">Get In Touch</a>
+      <a href="#projects" class="btn btn-ghost">View Work</a>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-img-wrap">
+        <div class="placeholder-img">👤</div>
+      </div>
+      <div class="hero-badge">
+        <div class="num">8+</div>
+        <div class="label">Years Experience</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-photo">👤</div>
+      <div class="about-text">
+        <div class="section-label">About Me</div>
+        <h2 class="section-title">Turning complexity into clarity</h2>
+        <p>Hi, I'm Annie — a strategic consultant with over 8 years of experience working with businesses across industries. I specialize in helping teams identify opportunities, remove friction, and build scalable systems.</p>
+        <p>I've partnered with startups, non-profits, and enterprise companies to deliver meaningful, measurable outcomes. My approach blends analytical rigor with practical, human-centered thinking.</p>
+        <div class="about-stats">
+          <div class="stat"><div class="n">40+</div><div class="l">Clients Served</div></div>
+          <div class="stat"><div class="n">8+</div><div class="l">Years Experience</div></div>
+          <div class="stat"><div class="n">95%</div><div class="l">Client Retention</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-label">Selected Work</div>
+    <h2 class="section-title">Projects & Engagements</h2>
+    <div class="projects-grid">
+      <div class="card">
+        <div class="card-thumb" style="background:#fdf0eb;">📊</div>
+        <div class="card-body">
+          <div class="card-tags"><span class="tag">Strategy</span><span class="tag">Operations</span></div>
+          <h3>Growth Strategy Overhaul</h3>
+          <p>Redesigned the go-to-market strategy for a Series B SaaS company, resulting in a 40% increase in qualified pipeline within 6 months.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumb" style="background:#ebf0fd;">🏗️</div>
+        <div class="card-body">
+          <div class="card-tags"><span class="tag">Process</span><span class="tag">Change Mgmt</span></div>
+          <h3>Operational Transformation</h3>
+          <p>Led a cross-functional process redesign for a 500-person manufacturing firm, reducing operational costs by 22% in year one.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumb" style="background:#ebfdf0;">🌱</div>
+        <div class="card-body">
+          <div class="card-tags"><span class="tag">Non-Profit</span><span class="tag">Strategy</span></div>
+          <h3>Non-Profit Scaling Plan</h3>
+          <p>Developed a 3-year scaling roadmap for a regional non-profit, enabling them to expand services to 3 new cities within 18 months.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label">Expertise</div>
+    <h2 class="section-title">Skills & Capabilities</h2>
+    <div class="skills-grid">
+      <div class="skill-cat">
+        <h3><span class="icon">🎯</span> Strategy</h3>
+        <div class="skill-bar-wrap"><div class="skill-name">Business Strategy <span>95%</span></div><div class="bar"><div class="bar-fill" style="width:95%"></div></div></div>
+        <div class="skill-bar-wrap"><div class="skill-name">Market Analysis <span>90%</span></div><div class="bar"><div class="bar-fill" style="width:90%"></div></div></div>
+        <div class="skill-bar-wrap"><div class="skill-name">Competitive Intelligence <span>85%</span></div><div class="bar"><div class="bar-fill" style="width:85%"></div></div></div>
+      </div>
+      <div class="skill-cat">
+        <h3><span class="icon">⚙️</span> Operations</h3>
+        <div class="skill-bar-wrap"><div class="skill-name">Process Design <span>90%</span></div><div class="bar"><div class="bar-fill" style="width:90%"></div></div></div>
+        <div class="skill-bar-wrap"><div class="skill-name">Change Management <span>88%</span></div><div class="bar"><div class="bar-fill" style="width:88%"></div></div></div>
+        <div class="skill-bar-wrap"><div class="skill-name">Project Management <span>92%</span></div><div class="bar"><div class="bar-fill" style="width:92%"></div></div></div>
+      </div>
+      <div class="skill-cat">
+        <h3><span class="icon">📣</span> Communication</h3>
+        <div class="skill-bar-wrap"><div class="skill-name">Stakeholder Mgmt <span>95%</span></div><div class="bar"><div class="bar-fill" style="width:95%"></div></div></div>
+        <div class="skill-bar-wrap"><div class="skill-name">Executive Presentations <span>92%</span></div><div class="bar"><div class="bar-fill" style="width:92%"></div></div></div>
+        <div class="skill-bar-wrap"><div class="skill-name">Workshop Facilitation <span>87%</span></div><div class="bar"><div class="bar-fill" style="width:87%"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">Get In Touch</div>
+    <h2 class="section-title">Let's work together</h2>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <p>Have a project in mind or want to explore how we might work together? I'd love to hear from you. Reach out and I'll get back to you within 48 hours.</p>
+        <div class="contact-detail"><span class="icon">📧</span> annie@example.com</div>
+        <div class="contact-detail"><span class="icon">📍</span> Available Worldwide</div>
+        <div class="contact-detail"><span class="icon">🕐</span> Mon–Fri, 9am–6pm</div>
+      </div>
+      <form onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <input type="text" placeholder="Your Name" required/>
+          <input type="email" placeholder="Your Email" required/>
+        </div>
+        <input type="text" placeholder="Subject"/>
+        <textarea placeholder="Tell me about your project..."></textarea>
+        <button type="submit">Send Message →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <span>Annie</span>. Crafted with care.</p>
+</footer>
+
+<script>
+  function handleSubmit(e){
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    btn.textContent = '✓ Message Sent!';
+    btn.style.background = '#2d8a4e';
+    btn.style.borderColor = '#2d8a4e';
+    setTimeout(()=>{
+      btn.textContent = 'Send Message →';
+      btn.style.background = '';
+      btn.style.borderColor = '';
+      e.target.reset();
+    }, 3000);
+  }
+
+  // Animate skill bars on scroll
+  const bars = document.querySelectorAll('.bar-fill');
+  const widths = Array.from(bars).map(b => b.style.width);
+  bars.forEach(b => b.style.width = '0');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        bars.forEach((b,i) => b.style.width = widths[i]);
+        obs.disconnect();
+      }
+    });
+  }, {threshold: 0.3});
+  const skillSec = document.querySelector('#skills');
+  if(skillSec) obs.observe(skillSec);
+</script>
+</body>
+</html>
